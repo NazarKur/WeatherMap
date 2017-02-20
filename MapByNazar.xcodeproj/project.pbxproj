@@ -78,6 +78,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		250582D91E5AD01500AE4ED3 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				25FB73E61E51E3840083642A /* AppDelegate.swift */,
+				25FB73EF1E51E3840083642A /* LaunchScreen.storyboard */,
+				25FB73ED1E51E3840083642A /* Assets.xcassets */,
+				25FB73F21E51E3840083642A /* Info.plist */,
+			);
+			name = "Supporting files";
+			sourceTree = "<group>";
+		};
 		25FB73DA1E51E3840083642A = {
 			isa = PBXGroup;
 			children = (
@@ -101,14 +112,11 @@
 		25FB73E51E51E3840083642A /* MapByNazar */ = {
 			isa = PBXGroup;
 			children = (
-				25FB73E61E51E3840083642A /* AppDelegate.swift */,
+				250582D91E5AD01500AE4ED3 /* Supporting files */,
 				25FB73E81E51E3840083642A /* ViewController.swift */,
 				25FB74181E534F600083642A /* WeatherParser.swift */,
 				25FB741A1E534FC00083642A /* WeatherAnnotation.swift */,
 				25FB73EA1E51E3840083642A /* Main.storyboard */,
-				25FB73ED1E51E3840083642A /* Assets.xcassets */,
-				25FB73EF1E51E3840083642A /* LaunchScreen.storyboard */,
-				25FB73F21E51E3840083642A /* Info.plist */,
 			);
 			path = MapByNazar;
 			sourceTree = "<group>";

@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vwi-Vs-72q">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vwi-Vs-72q">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="VVD-L5-3AH" appends="YES" id="Lbm-OV-2ZU"/>

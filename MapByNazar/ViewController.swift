@@ -16,6 +16,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let initialLatitude = 49.2327800
     let initialLongitude = 28.4809700
     let locationManager = CLLocationManager()
+    let temperatureOverlay = MKTileOverlay(urlTemplate: "http://maps.owm.io:8099/5735d67f5836286b007625cd/{z}/{x}/{y}?hash=ba22ef4840c7fcb08a7a7b92bf80d1fc")
     
     // MARK: - IBOutlets
     @IBOutlet weak var mapView: MKMapView!
@@ -35,9 +36,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             mapView.mapType = MKMapType.hybrid
         case 2:
             //FIX: - Don't draw tile
-            let site = "http://maps.owm.io:8099/5735d67f5836286b007625cd/{z}/{x}/{y}?hash=ba22ef4840c7fcb08a7a7b92bf80d1fc"
-            let temp = MKTileOverlay(urlTemplate: site) as MKOverlay
-            mapView.addOverlays(temp as! [MKOverlay])
+            mapView.remove(temperatureOverlay)
         default:
             break
         }
@@ -146,7 +145,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }) { (true) in
                 
             }
-        } 
+        }
     }
     
     // MARK: - IBActions
