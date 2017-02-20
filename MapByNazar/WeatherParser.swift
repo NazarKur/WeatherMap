@@ -53,13 +53,13 @@ extension WeatherParser: XMLParserDelegate {
                 print("\(windspeed)")
             }
         }
-        
-        //FIX: - parse weather icon
-//        if  elementName == "weather" {
-//          if let weatherIcon = attributeDict["icon"], let weatherIconView = UIImage(weatherIcon) {
-//                self.weatherIcon = weatherIconView
-//                print("\(windspeed)")
-//           }
-//        }
     }
+    
+//        //FIX: - parse weather icon
+//        if  elementName == "weather" {
+//        if let weatherIcon = attributeDict["icon"], let weatherIconView = UIImage(weatherIcon) {
+//            self.weatherIcon = weatherIconView
+//            print("\(windspeed)")
+//        }
+//    }
 }

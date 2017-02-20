@@ -128,6 +128,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 view.calloutOffset = CGPoint(x: -8, y: -5)
                 view.pinTintColor = annotation.color
                 view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIButton
+                //FIX: - need to parse icon to add it to leftAccessoryView
                 //                view.leftCalloutAccessoryView
             }
             return view
@@ -143,7 +144,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.menuView.transform = CGAffineTransform(translationX: 0,y: -95)
                 self.toggleMenuButton.transform = CGAffineTransform(rotationAngle: self.radians(180))
             }) { (true) in
-                
+    
             }
         }
     }
