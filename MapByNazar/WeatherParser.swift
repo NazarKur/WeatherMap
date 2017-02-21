@@ -16,7 +16,6 @@ class WeatherParser: NSObject {
     var windspeed: Double?
     var weatherIcon: UIImage?
     var iconDownloadCompletion : ((UIImage?) -> Void)?
-
     
     init(data : Data) {
         super.init()
@@ -24,7 +23,6 @@ class WeatherParser: NSObject {
         parser.delegate = self
         parser.parse()
     }
-    
     
     fileprivate func  downloadConditionImage(stringUrl : String) {
         guard let urlAllowed = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -48,8 +46,6 @@ class WeatherParser: NSObject {
         })
         dataTask.resume()
     }
-
-    
 }
 
 extension WeatherParser: XMLParserDelegate {
@@ -63,21 +59,18 @@ extension WeatherParser: XMLParserDelegate {
         if elementName == "pressure" {
             if let pressure = attributeDict["value"], let pressureDouble = Double(pressure) {
                 self.pressure = pressureDouble
-                print("\(pressure)")
             }
         }
         
         if elementName == "city" {
             if let cityName = attributeDict["name"], let cityNameString = String(cityName) {
                 self.cityName = cityNameString
-                print("\(cityName)")
             }
         }
         
         if  elementName == "speed" {
             if let windspeed = attributeDict["value"], let windspeedDouble = Double(windspeed) {
                 self.windspeed = windspeedDouble
-                print("\(windspeed)")
             }
         }
         
@@ -88,7 +81,5 @@ extension WeatherParser: XMLParserDelegate {
                 downloadConditionImage(stringUrl: iconUrl)
             }
         }
-
     }
-    
- }
+}

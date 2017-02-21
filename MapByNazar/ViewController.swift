@@ -47,7 +47,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             mapOverlay = MKTileOverlay(urlTemplate: openStreetUrl)
             mapOverlay.canReplaceMapContent = true
             mapView.insert(mapOverlay, at: 0)
-        default:
+                    default:
             break
         }
     }
@@ -68,6 +68,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
+    @IBAction func TemperatureButtonPressed(_ sender: UIButton) {
+    }
+
     // MARK: - Add animations to toggleMenuButton
     @IBAction func toggleMenu(_ sender: UIButton) {
         if darkFillView.transform == CGAffineTransform.identity{
@@ -161,7 +164,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     
-    // MARK: - IBActions
+    // MARK: - Adding Overlays
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let overlay = overlay as? MKTileOverlay {
+            let render = MKTileOverlayRenderer(tileOverlay: overlay)
+            return render
+        }
+        return MKOverlayRenderer()
+    }
+
+    // MARK: - IBAction to handle longpress tap
     @IBAction func handleTap(_ sender: UILongPressGestureRecognizer) {
         let location = sender.location(in: mapView)
         let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
@@ -178,22 +190,4 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                                 }
         })
     }
-}
-
-// MARK: - MKMapViewDelegate
-extension ViewController {
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let overlay = overlay as? MKTileOverlay {
-            let render = MKTileOverlayRenderer(tileOverlay: overlay)
-            return render
-        } else if let overlay = overlay as? MKPolygon {
-            let render = MKPolygonRenderer(polygon: overlay)
-            render.strokeColor = UIColor.red
-            render.lineWidth = 5
-            return render
-        }
-        return MKOverlayRenderer()
-    }
-    
 }

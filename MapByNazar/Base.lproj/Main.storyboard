@@ -83,15 +83,29 @@
                                     <constraint firstAttribute="height" constant="159" id="apx-X8-Mnw"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4VA-MA-NqY">
+                                <rect key="frame" x="315" y="290" width="60" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="o5E-i6-4Np"/>
+                                    <constraint firstAttribute="height" constant="60" id="ow3-1k-hmL"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="temperature"/>
+                                <connections>
+                                    <action selector="TemperatureButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W75-gp-tqv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0IS-Ns-Iqa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="36" id="02c-5w-Np5"/>
+                            <constraint firstItem="4VA-MA-NqY" firstAttribute="centerY" secondItem="vwi-Vs-72q" secondAttribute="centerY" constant="-13.5" id="0sx-54-79g"/>
                             <constraint firstAttribute="bottom" secondItem="Ygf-K0-ISC" secondAttribute="bottom" constant="-113" id="5kr-8R-tfQ"/>
                             <constraint firstItem="vwi-Vs-72q" firstAttribute="trailing" secondItem="Ygf-K0-ISC" secondAttribute="trailing" id="9p8-2G-dnl"/>
                             <constraint firstAttribute="trailing" secondItem="Ygf-K0-ISC" secondAttribute="trailing" id="Eqe-so-1PY"/>
                             <constraint firstItem="0IS-Ns-Iqa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="16" id="Hhe-ZG-nnD"/>
                             <constraint firstItem="vwi-Vs-72q" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="IJD-Vi-ROx"/>
+                            <constraint firstItem="4VA-MA-NqY" firstAttribute="trailing" secondItem="0IS-Ns-Iqa" secondAttribute="trailing" constant="26" id="KdX-5D-OBZ"/>
                             <constraint firstItem="Ygf-K0-ISC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Q5I-hB-3ga"/>
                             <constraint firstItem="vwi-Vs-72q" firstAttribute="leading" secondItem="Ygf-K0-ISC" secondAttribute="leading" id="RlU-Vf-nob"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0IS-Ns-Iqa" secondAttribute="trailing" constant="10" id="jsT-e9-rmq"/>
@@ -120,6 +134,7 @@
     </scenes>
     <resources>
         <image name="pressure" width="512" height="512"/>
+        <image name="temperature" width="512" height="512"/>
         <image name="topbtn" width="512" height="512"/>
         <image name="wind" width="512" height="512"/>
     </resources>
