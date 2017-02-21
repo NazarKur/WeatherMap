@@ -20,6 +20,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let googleMapUrl = "http://mt0.google.com/vt/x={x}&y={y}&z={z}"
     let temperatureUrl = "http://maps.owm.io:8099/5735d67f5836286b007625cd/{z}/{x}/{y}?hash=ba22ef4840c7fcb08a7a7b92bf80d1fc"
     let openStreetUrl = "http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    let windSpeedUrl = "http://a.maps.owm.io:8099/5735d67f5836286b0076267b/{z}/{x}/{y}?hash=ba22ef4840c7fcb08a7a7b92bf80d1fc"
     
     // MARK: - IBOutlets
     @IBOutlet weak var mapView: MKMapView!
@@ -68,7 +69,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
+    // MARK: - Add temperature tile
     @IBAction func TemperatureButtonPressed(_ sender: UIButton) {
+        
+        mapOverlay = MKTileOverlay(urlTemplate: windSpeedUrl)
+        mapView.add(mapOverlay)
+
     }
 
     // MARK: - Add animations to toggleMenuButton
