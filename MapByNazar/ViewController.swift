@@ -16,7 +16,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let initialLatitude = 49.2327800
     let initialLongitude = 28.4809700
     let locationManager = CLLocationManager()
-    let temperatureOverlay = MKTileOverlay(urlTemplate: "http://maps.owm.io:8099/5735d67f5836286b007625cd/{z}/{x}/{y}?hash=ba22ef4840c7fcb08a7a7b92bf80d1fc")
+    var mapOverlay = MKTileOverlay()
+    let googleMapUrl = "http://mt0.google.com/vt/x={x}&y={y}&z={z}"
+    let temperatureUrl = "http://maps.owm.io:8099/5735d67f5836286b007625cd/{z}/{x}/{y}?hash=ba22ef4840c7fcb08a7a7b92bf80d1fc"
+    let openStreetUrl = "http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
     
     // MARK: - IBOutlets
     @IBOutlet weak var mapView: MKMapView!
@@ -31,12 +34,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func changeMapType(_ sender: Any) {
         switch segmentControl.selectedSegmentIndex {
         case 0:
-            mapView.mapType = MKMapType.standard
+                mapView.remove(mapOverlay)
+                mapOverlay.canReplaceMapContent = true
+                mapView.mapType = MKMapType.standard
         case 1:
-            mapView.mapType = MKMapType.hybrid
+                mapView.remove(mapOverlay)
+                mapOverlay = MKTileOverlay(urlTemplate: googleMapUrl)
+                mapOverlay.canReplaceMapContent = true
+                mapView.insert(mapOverlay, at: 0)
         case 2:
-            //FIX: - Don't draw tile
-            mapView.remove(temperatureOverlay)
+            mapView.remove(mapOverlay)
+            mapOverlay = MKTileOverlay(urlTemplate: openStreetUrl)
+            mapOverlay.canReplaceMapContent = true
+            mapView.insert(mapOverlay, at: 0)
         default:
             break
         }
@@ -129,7 +139,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 view.pinTintColor = annotation.color
                 view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIButton
                 //FIX: - need to parse icon to add it to leftAccessoryView
-                //                view.leftCalloutAccessoryView
+                let leftIconView = UIImageView(frame: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(30), height: CGFloat(30)))
+                //                let imageString =  ()!
+                view.leftCalloutAccessoryView = leftIconView
             }
             return view
         }
@@ -144,7 +156,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.menuView.transform = CGAffineTransform(translationX: 0,y: -95)
                 self.toggleMenuButton.transform = CGAffineTransform(rotationAngle: self.radians(180))
             }) { (true) in
-    
+                
             }
         }
     }
@@ -158,7 +170,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                              longitude: coordinate.longitude,
                              completionHandler: { (data) in
                                 let parser = WeatherParser(data: data)
-                                let annotation = WeatherAnnotation(title: String(parser.cityName!) ,subtitle: String(format: "%g C", parser.temperature!), coordinate: coordinate)
+                                let annotation = WeatherAnnotation(title: String(parser.cityName!), subtitle: String(format: "%g C", parser.temperature!), leftIconView: parser.weatherIcon , coordinate: coordinate)
                                 DispatchQueue.main.async {
                                     self.mapView.addAnnotation(annotation)
                                     self.windspeedLabel.text = String(format: "%g m/s", parser.windspeed!)
@@ -166,4 +178,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                                 }
         })
     }
+}
+
+// MARK: - MKMapViewDelegate
+extension ViewController {
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let overlay = overlay as? MKTileOverlay {
+            let render = MKTileOverlayRenderer(tileOverlay: overlay)
+            return render
+        } else if let overlay = overlay as? MKPolygon {
+            let render = MKPolygonRenderer(polygon: overlay)
+            render.strokeColor = UIColor.red
+            render.lineWidth = 5
+            return render
+        }
+        return MKOverlayRenderer()
+    }
+    
 }

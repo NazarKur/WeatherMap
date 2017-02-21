@@ -15,6 +15,8 @@ class WeatherParser: NSObject {
     var cityName: String?
     var windspeed: Double?
     var weatherIcon: UIImage?
+    var iconDownloadCompletion : ((UIImage?) -> Void)?
+
     
     init(data : Data) {
         super.init()
@@ -22,6 +24,31 @@ class WeatherParser: NSObject {
         parser.delegate = self
         parser.parse()
     }
+    
+    
+    fileprivate func  downloadConditionImage(stringUrl : String) {
+        guard let urlAllowed = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+            let url = URL(string: urlAllowed) else {
+                print("Not valid URL")
+                return
+        }
+        
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    if let downloadCompletion = self.iconDownloadCompletion {
+                        downloadCompletion(UIImage(data: data!))
+                    }
+                    self.weatherIcon = UIImage(data: data!)
+                }
+            }
+        })
+        dataTask.resume()
+    }
+
     
 }
 
@@ -53,13 +80,15 @@ extension WeatherParser: XMLParserDelegate {
                 print("\(windspeed)")
             }
         }
+        
+        //FIX: - parse weather icon
+        if  elementName == "weather" {
+            if let weatherIcon = attributeDict["icon"] {
+                let iconUrl = "http://openweathermap.org/img/w/\(weatherIcon).png"
+                downloadConditionImage(stringUrl: iconUrl)
+            }
+        }
+
     }
     
-//        //FIX: - parse weather icon
-//        if  elementName == "weather" {
-//        if let weatherIcon = attributeDict["icon"], let weatherIconView = UIImage(weatherIcon) {
-//            self.weatherIcon = weatherIconView
-//            print("\(windspeed)")
-//        }
-//    }
-}
+ }

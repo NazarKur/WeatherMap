@@ -32,8 +32,8 @@
                                 <rect key="frame" x="32" y="56" width="317" height="29"/>
                                 <segments>
                                     <segment title="Standart"/>
-                                    <segment title="Hybrid"/>
-                                    <segment title="Temperature"/>
+                                    <segment title="Google Map"/>
+                                    <segment title="OpenSteet Map"/>
                                 </segments>
                                 <connections>
                                     <action selector="changeMapType:" destination="BYZ-38-t0r" eventType="valueChanged" id="O3a-aA-DvD"/>
