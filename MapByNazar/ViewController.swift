@@ -20,8 +20,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let googleMapUrl = "http://mt0.google.com/vt/x={x}&y={y}&z={z}"
     let temperatureUrl = "http://maps.owm.io:8099/5735d67f5836286b007625cd/{z}/{x}/{y}?hash=ba22ef4840c7fcb08a7a7b92bf80d1fc"
     let openStreetUrl = "http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    let windSpeedUrl = "http://a.maps.owm.io:8099/5735d67f5836286b0076267b/{z}/{x}/{y}?hash=ba22ef4840c7fcb08a7a7b92bf80d1fc"
-    
+        
     // MARK: - IBOutlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var menuView: UIView!
@@ -72,7 +71,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     // MARK: - Add temperature tile
     @IBAction func TemperatureButtonPressed(_ sender: UIButton) {
         
-        mapOverlay = MKTileOverlay(urlTemplate: windSpeedUrl)
+        mapOverlay = MKTileOverlay(urlTemplate: temperatureUrl)
         mapView.add(mapOverlay)
 
     }
@@ -189,6 +188,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                              completionHandler: { (data) in
                                 let parser = WeatherParser(data: data)
                                 let annotation = WeatherAnnotation(title: String(parser.cityName!), subtitle: String(format: "%g C", parser.temperature!), leftIconView: parser.weatherIcon , coordinate: coordinate)
+                                print("\(parser.weatherIcon)")
                                 DispatchQueue.main.async {
                                     self.mapView.addAnnotation(annotation)
                                     self.windspeedLabel.text = String(format: "%g m/s", parser.windspeed!)
