@@ -74,10 +74,9 @@ extension WeatherParser: XMLParserDelegate {
             }
         }
         
-        //FIX: - parse weather icon
         if  elementName == "weather" {
-            if let weatherIcon = attributeDict["icon"] {
-                let iconUrl = "http://openweathermap.org/img/w/\(weatherIcon).png"
+            if let icon = attributeDict["icon"] {
+                let iconUrl = "http://openweathermap.org/img/w/\(icon).png"
                 downloadConditionImage(stringUrl: iconUrl)
             }
         }
